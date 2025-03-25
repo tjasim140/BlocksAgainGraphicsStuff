@@ -1,3 +1,4 @@
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -32,7 +33,19 @@ public class BrickLayout {
         if (bricks.size() != 0) {
             Brick b = bricks.remove(0);
             // put this brick into the 2D array
-
+            for(int i=brickLayout.length-1;i>=0;i++){
+                if(rowIsEmpty(brickLayout[i])){
+                    for(int col = b.getStart();col<b.getEnd();col++){
+                        brickLayout[i][col]=1;
+                    }
+                }else if (hasSpace(brickLayout[i],b)){
+                    for(int col = b.getStart();col<b.getEnd();col++){
+                        brickLayout[i][col]=1;
+                    }
+                }else{
+                    i++;
+                }
+            }
         }
     }
 
@@ -54,7 +67,7 @@ public class BrickLayout {
     }
 
     public void printBrickLayout() {
-        for (int r = brickLayout.length; r >= 0; r++) {
+        for (int r = 0; r < brickLayout.length; r++) {
             for (int c = 0; c < brickLayout[0].length; c++) {
                 System.out.print(brickLayout[r][c] + " ");
             }
@@ -70,9 +83,24 @@ public class BrickLayout {
             return false;
         }
     }
+    public boolean rowIsEmpty (int[] row){
+        for (int x : row){
+            if (x==1){
+                return false;
+            }
+        }
+        return true;
+    }
 
-    public boolean checkRow (){
-
+    public boolean hasSpace(int[]row,Brick b){
+        int start = b.getStart();
+        int end = b.getEnd();
+        for(int i=start; i<=end; i++){
+            if(row[i]==1){
+                return false;
+            }
+        }
+        return true;
     }
 }
 
