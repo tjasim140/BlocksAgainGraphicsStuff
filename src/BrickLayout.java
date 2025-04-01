@@ -23,27 +23,41 @@ public class BrickLayout {
         }
         brickLayout = new int[bricks.size()][cols];
         if (dropAllBricks) {
-            while (bricks.size() != 0) {
+            while (!bricks.isEmpty()) {
                 doOneBrick();
             }
         }
     }
 
     public void doOneBrick() {
-        if (bricks.size() != 0) {
-            Brick b = bricks.remove(0);
+        if (!bricks.isEmpty()) {
+            Brick b = bricks.removeFirst();
             // put this brick into the 2D array
-            for(int i=brickLayout.length-1;i>=0;i++){
-                if(rowIsEmpty(brickLayout[i])){
-                    for(int col = b.getStart();col<b.getEnd();col++){
-                        brickLayout[i][col]=1;
-                    }
-                }else if (hasSpace(brickLayout[i],b)){
-                    for(int col = b.getStart();col<b.getEnd();col++){
-                        brickLayout[i][col]=1;
+            int r=brickLayout.length-1;
+            if (rowIsEmpty(brickLayout[r]) || hasSpace(brickLayout[r], b)) {
+                for (int i = b.getStart(); i <= b.getEnd(); i++) {
+                    brickLayout[r][i] = 1;
+                }
+            }else{
+                r--;
+                if (rowIsEmpty(brickLayout[r]) || hasSpace(brickLayout[r], b)) {
+                    for (int i = b.getStart(); i <= b.getEnd(); i++) {
+                        brickLayout[r][i] = 1;
                     }
                 }else{
-                    i++;
+                    r--;
+                    if (rowIsEmpty(brickLayout[r]) || hasSpace(brickLayout[r], b)) {
+                        for (int i = b.getStart(); i <= b.getEnd(); i++) {
+                            brickLayout[r][i] = 1;
+                        }
+                    }else{
+                        r--;
+                        if (rowIsEmpty(brickLayout[r]) || hasSpace(brickLayout[r], b)) {
+                            for (int i = b.getStart(); i <= b.getEnd(); i++) {
+                                brickLayout[r][i] = 1;
+                            }
+                        }
+                    }
                 }
             }
         }
