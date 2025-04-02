@@ -8,6 +8,11 @@ public class BrickLayout {
 
     private ArrayList<Brick> bricks;
     private int[][] brickLayout;
+
+    public int[][] getBrickLayout() {
+        return brickLayout;
+    }
+
     private int cols;
 
     public BrickLayout(String fileName, int cols, boolean dropAllBricks) {
@@ -26,39 +31,23 @@ public class BrickLayout {
             while (!bricks.isEmpty()) {
                 doOneBrick();
             }
+        }else{
+            doOneBrick();
         }
     }
 
     public void doOneBrick() {
+       // int r=brickLayout.length-1;
         if (!bricks.isEmpty()) {
             Brick b = bricks.removeFirst();
             // put this brick into the 2D array
-            int r=brickLayout.length-1;
+            for (int r=brickLayout.length-1;r>=0;r--){
             if (rowIsEmpty(brickLayout[r]) || hasSpace(brickLayout[r], b)) {
                 for (int i = b.getStart(); i <= b.getEnd(); i++) {
                     brickLayout[r][i] = 1;
                 }
-            }else{
-                r--;
-                if (rowIsEmpty(brickLayout[r]) || hasSpace(brickLayout[r], b)) {
-                    for (int i = b.getStart(); i <= b.getEnd(); i++) {
-                        brickLayout[r][i] = 1;
-                    }
-                }else{
-                    r--;
-                    if (rowIsEmpty(brickLayout[r]) || hasSpace(brickLayout[r], b)) {
-                        for (int i = b.getStart(); i <= b.getEnd(); i++) {
-                            brickLayout[r][i] = 1;
-                        }
-                    }else{
-                        r--;
-                        if (rowIsEmpty(brickLayout[r]) || hasSpace(brickLayout[r], b)) {
-                            for (int i = b.getStart(); i <= b.getEnd(); i++) {
-                                brickLayout[r][i] = 1;
-                            }
-                        }
-                    }
-                }
+                r=-1;
+            }
             }
         }
     }
