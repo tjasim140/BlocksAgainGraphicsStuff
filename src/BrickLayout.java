@@ -37,7 +37,6 @@ public class BrickLayout {
     }
 
     public void doOneBrick() {
-       // int r=brickLayout.length-1;
         if (!bricks.isEmpty()) {
             Brick b = bricks.removeFirst();
             // put this brick into the 2D array

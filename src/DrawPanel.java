@@ -5,11 +5,12 @@ import java.awt.event.MouseListener;
 
 public class DrawPanel extends JPanel implements MouseListener {
 
-    private int [][] brickLayout;
+    //private int [][] brickLayout;
     private BrickLayout layout;
     public DrawPanel() {
         this.addMouseListener(this);
         long time = System.currentTimeMillis();
+        layout = new BrickLayout("src/bricks", 40, false);
     }
 
     protected void paintComponent(Graphics g) {
@@ -18,14 +19,13 @@ public class DrawPanel extends JPanel implements MouseListener {
         for(int i=0;i<40;i++){
             for(int j=0; j<30;j++) {
                 g.drawRect(10 + (i * 25), 10+(j*25), 20, 20);
-                if(brickLayout[j][i]==1) {
-                    g2.setColor(Color.pink);
-                    g2.fillRect(10 + (i * 25), 10 + (j * 25), 20, 20);
+                if (layout.getBrickLayout()[j][i]==1){
+                    g2.setColor(Color.PINK);
+                    g2.fillRect(10 + (i * 25), 10+(j*25), 20, 20);
                     g2.setColor(Color.BLACK);
                 }
             }
         }
-
     }
 
 //    public void thirty(){
@@ -56,6 +56,7 @@ public class DrawPanel extends JPanel implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         layout.doOneBrick();
+        layout.printBrickLayout();
     }
 
     @Override
