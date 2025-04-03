@@ -28,30 +28,6 @@ public class DrawPanel extends JPanel implements MouseListener {
         }
     }
 
-//    public void thirty(){
-//        grid = new boolean[30][40];
-//        for(int r=0; r<grid.length;r++){
-//            for(int c=0; c<grid[0].length;c++){
-//                int chance = (int)(Math.random()*10);
-//                if (chance<3){
-//                    grid[r][c]=true;
-//                }
-//            }
-//        }
-//    }
-
-//    public random(){
-//        brickLayout = new int [30][40];
-//        for(int r=0; r<brickLayout.length;r++){
-//            for(int c=0; c<brickLayout[0].length;c++){
-//                int chance = (int)(Math.random()*10);
-//                if (chance<3){
-//                    brickLayout[r][c]=1;
-//                }
-//            }
-//        }
-//        return color;
-//    }
 
     @Override
     public void mouseClicked(MouseEvent e) {

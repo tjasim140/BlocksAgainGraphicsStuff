@@ -8,15 +8,12 @@ public class BrickLayout {
 
     private ArrayList<Brick> bricks;
     private int[][] brickLayout;
-
-    public int[][] getBrickLayout() {
-        return brickLayout;
-    }
-
+    private int height;
     private int cols;
 
     public BrickLayout(String fileName, int cols, boolean dropAllBricks) {
         this.cols = cols;
+        height = 1;
         ArrayList<String> fileData = getFileData(fileName);
         bricks = new ArrayList<Brick>();
         for (String line : fileData) {
@@ -36,18 +33,23 @@ public class BrickLayout {
         }
     }
 
+    public int[][] getBrickLayout() {
+        return brickLayout;
+    }
+
     public void doOneBrick() {
         if (!bricks.isEmpty()) {
             Brick b = bricks.removeFirst();
             // put this brick into the 2D array
-            for (int r=brickLayout.length-1;r>=0;r--){
-            if (rowIsEmpty(brickLayout[r]) || hasSpace(brickLayout[r], b)) {
-                for (int i = b.getStart(); i <= b.getEnd(); i++) {
-                    brickLayout[r][i] = 1;
+            for (int r = 0; r < brickLayout.length; r++){
+                if (!hasSpace(r+1, b) && hasSpace(r, b)) {
+                    for (int i = b.getStart(); i <= b.getEnd(); i++) {
+                        brickLayout[r][i] = 1;
+                    }
+                    r=brickLayout.length;
                 }
-                r=-1;
             }
-            }
+
         }
     }
 
@@ -75,6 +77,7 @@ public class BrickLayout {
             }
             System.out.println();
         }
+        System.out.println();
     }
 
     public boolean checkBrickSpot(int r, int c) {
@@ -85,24 +88,20 @@ public class BrickLayout {
             return false;
         }
     }
-    public boolean rowIsEmpty (int[] row){
-        for (int x : row){
-            if (x==1){
+
+    public boolean hasSpace(int row,Brick b){
+        int start = b.getStart();
+        int end = b.getEnd();
+        if (row>= brickLayout.length||row<0){
+            return false;
+        }
+        for(int i=start; i<=end; i++){
+            if(brickLayout[row][i]==1){
                 return false;
             }
         }
         return true;
     }
 
-    public boolean hasSpace(int[]row,Brick b){
-        int start = b.getStart();
-        int end = b.getEnd();
-        for(int i=start; i<=end; i++){
-            if(row[i]==1){
-                return false;
-            }
-        }
-        return true;
-    }
 }
 
