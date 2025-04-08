@@ -5,11 +5,10 @@ import java.awt.event.MouseListener;
 
 public class DrawPanel extends JPanel implements MouseListener {
 
-    //private int [][] brickLayout;
     private BrickLayout layout;
     public DrawPanel() {
         this.addMouseListener(this);
-        long time = System.currentTimeMillis();
+        long start = System.currentTimeMillis();
         layout = new BrickLayout("src/bricks", 40, false);
     }
 
@@ -31,7 +30,7 @@ public class DrawPanel extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        layout.doOneBrick();
+        layout.placeBrick();
         layout.printBrickLayout();
     }
 

@@ -24,13 +24,14 @@ public class BrickLayout {
             bricks.add(b);
         }
         brickLayout = new int[bricks.size()][cols];
-        if (dropAllBricks) {
-            while (!bricks.isEmpty()) {
-                doOneBrick();
-            }
-        }else{
-            doOneBrick();
+        for(Brick brick:bricks){
+
         }
+//        if (dropAllBricks) {
+//            while (!bricks.isEmpty()) {
+//                placeBrick();
+//            }
+//        }
     }
 
     public int[][] getBrickLayout() {
@@ -49,9 +50,31 @@ public class BrickLayout {
                     r=brickLayout.length;
                 }
             }
-
         }
     }
+
+    public void placeBrick() {
+        if (!bricks.isEmpty()) {
+            Brick b = bricks.removeFirst();
+            // put this brick into the 2D array
+            for (int i = b.getStart(); i <= b.getEnd(); i++) {
+                brickLayout[0][i] = 1;
+            }
+        }
+    }
+
+    public void moveBrick() {
+        for (int c = 0; c < brickLayout[0].length; c++) {
+            for (int r = 0; r < brickLayout.length - 1; r++) {
+                if (brickLayout[r][c] == 1 && (r+1)<= brickLayout.length) {
+                    brickLayout[r][c]=0;
+                    brickLayout[r+1][c]=1;
+                    r++;
+                }
+            }
+        }
+    }
+
 
     public ArrayList<String> getFileData(String fileName) {
         File f = new File(fileName);
