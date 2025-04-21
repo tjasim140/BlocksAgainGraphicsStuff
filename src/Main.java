@@ -3,6 +3,5 @@ public class Main {
         MainFrame frame = new MainFrame("Not Tetris");
         BrickLayout b = new BrickLayout("src/bricks", 40, false);
         b.printBrickLayout();
-
     }
 }
